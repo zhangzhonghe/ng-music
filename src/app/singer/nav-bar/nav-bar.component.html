@@ -1,0 +1,7 @@
+<div
+  class="nav-item"
+  [class.active]="i === activeIndex"
+  *ngFor="let item of list; index as i"
+  (touchstart)="onTouch($event, i)"
+  (touchmove)="onMove($event)"
+>{{ item }}</div>

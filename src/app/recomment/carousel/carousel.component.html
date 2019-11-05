@@ -1,0 +1,10 @@
+<div class="app-carousel">
+  <div class="imgs" [class.animation]="animation" [style.transform]="'translateX(' + move + 'px)'">
+    <a href="#" *ngFor="let url of list; index as i">
+      <img #imgRef [src]="url" alt="轮播图" (touchstart)="onStart($event)" (touchmove)="onMove($event)" (touchend)="onEnd(imgRef, i)">
+    </a> 
+  </div>
+  <div class="dots">
+    <span *ngFor="let item of list; index as i" [class.active]="active === i"></span>
+  </div>
+</div>

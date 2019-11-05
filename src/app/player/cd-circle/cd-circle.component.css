@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  position: relative;
+  padding-top: 80%;
+}
+
+.cd-circle {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 80%;
+  margin: auto;
+  background-size: 100% 100%;
+  background-clip: content-box;
+  border: 10px solid hsla(0, 0%, 100%, .1);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.playing {
+  animation: cd-animation 20s linear infinite;
+}
+
+@keyframes cd-animation {
+  from { transform: rotate(0); }
+  to   { transform: rotate(1turn); }
+}

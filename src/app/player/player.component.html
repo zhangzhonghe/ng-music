@@ -1,0 +1,32 @@
+<div class="normal-player-background" [style.background-image]="'url(' + currentSong.image + ')'"></div>
+<div class="normal-player-hd">
+  <i class="icon-back" (click)="onClose()"></i>
+  <div class="song-name">差三岁</div>
+  <div class="song-author">Jam</div>
+</div>
+<div class="normal-player-bd" (click)="onSwitchLyric()">
+  <div class="cd-turning" [class.show]="!showLyric">
+    <app-cd-circle [imgUrl]="currentSong.image" [playing]="false"></app-cd-circle>
+    <div class="mini-lyric">这里是歌词</div>
+  </div>
+  <div class="normal-lyric" [class.show]="showLyric">
+    <span class="normal-lyric-item">这里是歌词</span>
+  </div>
+</div>
+<div class="normal-player-ft">
+  <app-progress-bar [progress]="progress" [duration]="currentSong.duration" (changed)="onProgressChanged($event)"></app-progress-bar>
+  <div class="normal-player-btn-group">
+    <i [class]="'icon-' + playMode" (click)="onSwitchMode()"></i>
+    <i class="icon-prev" (click)="onPrevSong()"></i>
+    <i [ngClass]="playing ? 'icon-pause' : 'icon-play'" class="fs-40" (click)="onPlayOrPause()"></i>
+    <i class="icon-next" (click)="onNextSong()"></i>
+    <i [class]="currentSong.favorite ? 'icon-favorite c-red' : 'icon-not-favorite'" (click)="onSwitchFavorite()"></i>
+  </div>
+</div>
+<audio
+  #audio
+  [src]="currentSong.url"
+  (pause)="onPause()"
+  (playing)="onPlaying()"
+  (timeupdate)="onTimeUpdate($event)" >
+</audio>

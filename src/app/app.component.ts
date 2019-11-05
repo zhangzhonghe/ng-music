@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'a-music',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: [ './app.component.css' ]
 })
-export class AppComponent {
-  title = 'ng-music';
+export class AppComponent  {
+  showNormalPlayer: boolean = true;
+
+  constructor () {
+  };
+
+  onHiddenPlayer () {
+    this.showNormalPlayer = false;
+  }
+
 }

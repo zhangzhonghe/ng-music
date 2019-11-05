@@ -1,0 +1,84 @@
+.container {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: #222;
+  overflow: auto;
+}
+
+.hd {
+  line-height: 40px;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.bg222 {
+  background-color: #222;
+}
+
+.icon-back {
+  float: left;
+  padding: 10px;
+  color: #ffcd32;
+}
+
+.hd-content {
+  margin-left: -20px;
+  color: #fff;
+}
+
+.cover {
+  padding-top: 70%;
+  position: relative;
+  background-size: 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  margin-bottom: 20px;
+}
+
+.cover::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: rgba(0, 0, 0, .3);
+}
+
+.song {
+  font-size: 15px;
+  padding: 12px 30px;
+}
+
+.song:last-child {
+  padding-bottom: 30px;
+}
+
+.song-name {
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.singer {
+  color: rgba(255, 255, 255, .3);
+}
+
+.play-btn {
+  position: absolute;
+  left: 0; right: 0;
+  margin: 0 auto;
+  margin-top: 56%;
+  z-index: 1;
+  font-size: 12px;
+  width: 135px;
+  line-height: 32px;
+  border-radius: 100px;
+  border: 1px solid;
+  text-align: center;
+  color: #ffcd32;
+}
+
+.icon-play {
+  font-size: 14px;
+  vertical-align: -2px;
+}

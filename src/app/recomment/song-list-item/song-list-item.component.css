@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  padding: 0 20px 20px;
+  color: #fff;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.app-list-item-img {
+  width: 60px;
+  height: 60px;
+  vertical-align: middle;
+}
+
+.app-list-item-content {
+  display: inline-block;
+  margin-left: 20px;
+  width: calc(100% - 80px);
+  vertical-align: middle;
+}
+
+.app-list-item-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-list-item-subtitle {
+  color: rgba(255, 255, 255, .3);
+  margin-top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

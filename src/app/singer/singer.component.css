@@ -1,0 +1,40 @@
+.singer-container {
+  overflow: auto;
+  height: 100%;
+  position: relative;
+}
+
+.singer-title {
+  font-size: 12px;
+  line-height: 30px;
+  height: 30px;
+  padding-left: 20px;
+  background-color: #333;
+  color: rgba(255, 255, 255, .5);
+}
+
+.singer-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.singer-name {
+  font-size: 14px;
+  color: rgba(255, 255, 255, .5);
+  margin-left: 20px;
+  vertical-align: middle;
+}
+
+.singer-item {
+  padding-left: 30px;
+  margin: 20px 0;
+}
+
+.pf {
+  position: fixed;
+  top: 88px;
+  width: 100%;
+  box-sizing: border-box;
+}

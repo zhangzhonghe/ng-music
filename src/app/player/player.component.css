@@ -1,0 +1,104 @@
+:host {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: #222;
+  z-index: 2;
+}
+
+.normal-player-background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  filter: blur(20px);
+  opacity: .6;
+  background-size: 100% 100%;
+  z-index: -1;
+}
+
+.normal-player-hd {
+  margin-bottom: 24px;
+}
+
+.normal-player-bd {
+  height: calc(100% - 240px);
+}
+
+.song-name,
+.song-author {
+  position: relative;
+  color: #fff;
+  text-align: center;
+}
+
+.song-name {
+  font-size: 18px;
+  line-height: 40px;
+}
+
+.song-author {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.icon-back {
+  display: inline-block;
+  position: absolute;
+  left: 6px;
+  padding: 9px;
+  font-size: 22px;
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  z-index: 1;
+}
+
+.mini-lyric {
+  font-size: 14px;
+  color: rgba(255, 255, 255, .5);
+  line-height: 20px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.normal-player-ft {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+}
+
+.normal-player-btn-group {
+  font-size: 30px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.normal-player-btn-group > * {
+  vertical-align: middle;
+  margin: 0 4.8%;
+}
+
+.normal-lyric {
+  display: none;
+  text-align: center;
+  height: 100%;
+}
+
+.normal-lyric-item {
+  color: rgba(255, 255, 255, .5);
+  font-size: 14px;
+}
+
+.cd-turning {
+  display: none;
+}
+
+.show {
+  display: block;   
+}
+
+.fs-40 {
+  font-size: 40px;
+}
+
+.c-red {
+  color: #d93f30;
+}

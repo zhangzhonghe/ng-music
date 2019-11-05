@@ -1,0 +1,27 @@
+.rank-item {
+  background-color: #333;
+  margin: 20px;
+}
+
+.rank-item-img {
+  width: 100px;
+  height: 100px;
+  vertical-align: middle;
+}
+
+.rank-item-content {
+  display: inline-block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, .3);
+  padding: 0 20px;
+  vertical-align: middle;
+  width: calc(100% - 100px);
+  box-sizing: border-box;
+}
+
+.rank-item-content > * {
+  line-height: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

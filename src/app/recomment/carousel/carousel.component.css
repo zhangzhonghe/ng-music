@@ -1,0 +1,41 @@
+.app-carousel {
+  overflow: hidden;
+  position: relative;
+}
+
+.dots {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.dots > span {
+  display: inline-block;
+  width: .5em;
+  height: .5em;
+  margin: 0 .2em;
+  border-radius: .5em;
+  background-color: #eee;
+}
+
+.dots > span.active {
+  width: 1em;
+}
+
+.imgs {
+  font-size: 0;
+  white-space: nowrap;
+}
+
+.imgs > * {
+  display: inline-block;
+}
+
+img {
+  width: 100%;
+}
+
+.animation {
+  transition: transform .3s;
+}

@@ -1,0 +1,6 @@
+<span class="current-time">{{ duration * rateOfProgress | number:'3.0-0' }}</span>
+<div class="progress-wrapper" #progressWrapper (touchstart)="onTouch($event)" (touchmove)="onMove($event)" (touchend)="onEnd()">
+  <span class="filled-bar" [style.width.%]="rateOfProgress * 100"></span>
+  <span class="move-btn"></span>
+</div>
+<span class="total-time">{{ duration }}</span>

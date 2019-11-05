@@ -1,0 +1,11 @@
+<div class="singer-container" [scrollTop]="scrollTop" (scroll)="onScroll($event)">
+  <div class="singer-title pf">{{ groupTitle }}</div>
+  <ng-container *ngFor="let group of singerList">
+    <div class="singer-title" #groupTitles>{{ group.title }}</div>
+    <div class="singer-item" *ngFor="let singer of group.list">
+      <img class="singer-avatar" [src]="singer.avatar" alt="薛之谦">
+      <span class="singer-name">{{ singer.name }}</span>
+    </div>
+  </ng-container>
+  <app-nav-bar [list]="singerList" [active]="active" (selected)="onSelectedOfNavBar($event)"></app-nav-bar>
+</div>

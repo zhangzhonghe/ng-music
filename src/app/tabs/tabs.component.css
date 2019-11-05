@@ -1,0 +1,27 @@
+.app-tabs > .tab-item {
+  display: inline-block;
+  width: 25%;
+  font-size: 14px;
+  line-height: 44px;
+  text-align: center;
+  color: rgba(255, 255, 255, .5);
+  background-color: #222;
+  text-decoration: none;
+}
+
+/* 重复，可以增加权重 */
+.active.active.active {
+  position: relative;
+  color: #ffcd32;
+}
+
+.active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: .6em; left: 0; right: 0;
+  width: 2em;
+  height: 2px;
+  margin: auto;
+  background-color: #ffcd32;
+}
