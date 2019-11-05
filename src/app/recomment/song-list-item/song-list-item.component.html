@@ -1,5 +1,5 @@
-<img class="app-list-item-img" src="https://p.qpic.cn/music_cover/3MLTH2k3HibTypyQfrdDcnLtAerMxDthxqKdIhyeUrwfZ1JcSSCN49A/600?n=1" alt="123">
+<img class="app-list-item-img" [src]="info.imgurl" [alt]="info.dissname">
 <span class="app-list-item-content">
-  <div class="app-list-item-title">{{ info.title }}</div>
-  <div class="app-list-item-subtitle">{{ info.subtitle }}</div>
+  <div class="app-list-item-title">{{ info?.creator?.name }}</div>
+  <div class="app-list-item-subtitle">{{ info?.dissname }}</div>
 </span>

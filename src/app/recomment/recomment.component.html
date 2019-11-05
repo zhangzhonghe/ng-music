@@ -1,4 +1,6 @@
-<app-carousel [list]="list"></app-carousel>
+<app-carousel [list]="imgList"></app-carousel>
 <div class="app-hot-h1">热门歌单推荐</div>
-<app-song-list-item routerLink="/recomment/song-list" [info]="{title: '标题', subtitle: '副标题'}"></app-song-list-item>
+<ng-container *ngFor="let disc of discList">
+  <app-song-list-item [routerLink]="['/recomment', disc.dissid]" [info]="disc"></app-song-list-item>
+</ng-container>
 <router-outlet></router-outlet>

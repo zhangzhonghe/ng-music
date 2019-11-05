@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./song-list-item.component.css']
 })
 export class SongListItemComponent implements OnInit {
-  @Input() info: object;
+  @Input() info: any;
 
   constructor() { }
 

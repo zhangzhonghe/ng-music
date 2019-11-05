@@ -4,3 +4,4 @@
   <router-outlet></router-outlet>
 </div>
 <app-player [ngClass]="showNormalPlayer ? 'show': 'hidden'" (closed)="onHiddenPlayer()"></app-player>
+<app-loading *ngIf="showLoading" class="app-loading"></app-loading>

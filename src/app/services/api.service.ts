@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable, of } from 'rxjs';
 import { pluck, tap, catchError, map, retry } from 'rxjs/operators';
-import { genUrlMid } from '../third/song';
+import { genUrlMid } from '../../third/song';
 
 const commonParams = {
   g_tk: '1928093487',
@@ -67,6 +67,7 @@ interface SliderItem {
 
 @Injectable()
 export class ApiService {
+  showLoading = false;
 
   constructor(
     private _http: HttpClient
@@ -77,7 +78,7 @@ export class ApiService {
     return throwError('出现了一点问题，请稍后再试！');
   }
 
-  getRecommend (): Observable<SliderItem[]> {
+  getRecommend (): Observable<any[]> {
     const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
 
     const query = Object.assign({}, commonParams, {
@@ -92,7 +93,7 @@ export class ApiService {
     );
   }
 
-  getDiscList () {
+  getDiscList (): Observable<any[]> {
     const url = 'https://www.mu-zi.xyz/api/getSongsList';
 
     const query = Object.assign({}, commonParams, {
@@ -107,8 +108,11 @@ export class ApiService {
       format: 'json'
     });
 
+    this.showLoading = true;
+    
     return this._http.get(addQuery(url, query)).pipe(
       catchError(this._handleError),
+      tap(() => this.showLoading = false),
       pluck('data', 'list')
     );
   }
@@ -128,8 +132,11 @@ export class ApiService {
       format: 'json'
     });
 
+    this.showLoading = true;
+
     return this._http.get(addQuery(url, query)).pipe(
       catchError(this._handleError),
+      tap(() => this.showLoading = false),
       pluck('cdlist', '0'),
       map(val => {
         val['songlist'] = val['songlist'].map(item => createSong(item));
@@ -152,7 +159,11 @@ export class ApiService {
       platform: 'yqq'
     });
 
-    return this._http.jsonp(addQuery(url, query), 'jsonpCallback');
+    this.showLoading = true;
+
+    return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
+      tap(() => this.showLoading = false)
+    );
   }
 
   getSingerDetail (singerId) {
@@ -169,7 +180,11 @@ export class ApiService {
       singermid: singerId
     });
 
-    return this._http.jsonp(addQuery(url, query), 'jsonpCallback');
+    this.showLoading = true;
+    
+    return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
+      tap(() => this.showLoading = false)
+    );
   }
 
   getTopList () {
@@ -181,7 +196,11 @@ export class ApiService {
       platform: 'h5'
     });
 
-    return this._http.jsonp(addQuery(url, query), 'jsonpCallback');
+    this.showLoading = true;
+    
+    return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
+      tap(() => this.showLoading = false)
+    );
   }
 
   getMusicList (topid) {
@@ -197,7 +216,11 @@ export class ApiService {
       platform: 'h5'
     });
 
-    return this._http.jsonp(addQuery(url, query), 'jsonpCallback');
+    this.showLoading = true;
+
+    return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
+      tap(() => this.showLoading = false)
+    );
   }
 
   getHotKey () {
@@ -233,8 +256,12 @@ export class ApiService {
       platform: 'h5',
       format: 'json'
     });
+    
+    this.showLoading = true;
 
-    return this._http.get(addQuery(url, query));
+    return this._http.get(addQuery(url, query)).pipe(
+      tap(() => this.showLoading = false)
+    );
   }
 
   getLyric (mid) {

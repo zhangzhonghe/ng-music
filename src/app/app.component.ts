@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiService } from './services/api.service';
 
 @Component({
   selector: 'a-music',
@@ -6,10 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: [ './app.component.css' ]
 })
 export class AppComponent  {
-  showNormalPlayer: boolean = true;
+  showNormalPlayer = false;
 
-  constructor () {
+  constructor (
+    private _api: ApiService
+  ) {
   };
+
+  get showLoading () {
+    return this._api.showLoading;
+  }
 
   onHiddenPlayer () {
     this.showNormalPlayer = false;

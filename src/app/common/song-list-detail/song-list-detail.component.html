@@ -1,0 +1,15 @@
+<div class="container" (scroll)="onScroll($event, coverRef.offsetHeight)">
+  <div class="hd" [class.bg222]="showBg">
+    <i class="icon-back" (click)="onBack()"></i>
+    <span class="hd-content">{{ title }}</span>
+  </div>
+  <div class="play-btn">
+    <i class="icon-play"></i>
+    随机播放全部
+  </div>
+  <div #coverRef class="cover" [style.backgroundImage]="'url(' + cover + ')'"></div>
+  <div class="song" *ngFor="let song of songs">
+    <div class="song-name tof-e">{{ song.name }}</div>
+    <div class="singer tof-e">{{ song.singer + '·' + song.album }}</div>
+  </div>
+</div>

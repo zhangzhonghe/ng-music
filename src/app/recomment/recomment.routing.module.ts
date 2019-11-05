@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RecommentComponent } from './recomment.component';
-import { SongListDetailComponent } from './song-list-detail/song-list-detail.component';
+import { SongListDetailComponent } from '../common/song-list-detail/song-list-detail.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
     component: RecommentComponent,
     children: [
       {
-        path: 'song-list',
+        path: ':dissid',
         component: SongListDetailComponent
       }
     ]

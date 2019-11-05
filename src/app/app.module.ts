@@ -14,7 +14,9 @@ import { httpInterceptorProviders } from './http-interceptor/index';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { TabsComponent } from './tabs/tabs.component';
-import { ApiService } from './api.service';
+import { LoadingComponent } from './common/loading/loading.component';
+
+import { ApiService } from './services/api.service';
 
 @NgModule({
   imports: [
@@ -32,7 +34,8 @@ import { ApiService } from './api.service';
   declarations: [
     AppComponent,
     HeaderComponent,
-    TabsComponent
+    TabsComponent,
+    LoadingComponent
   ],
   bootstrap: [ AppComponent ],
   providers: [
