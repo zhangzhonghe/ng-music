@@ -13,4 +13,4 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     PlayerComponent
   ]
 })
-export class AppPlayerModule { }
+export class PlayerModule { }

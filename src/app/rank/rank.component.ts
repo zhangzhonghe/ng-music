@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../services/api.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-rank',
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rank.component.css']
 })
 export class RankComponent implements OnInit {
-
-  constructor() { }
+  topList = [];
+  
+  constructor(
+    private _api: ApiService
+  ) {
+    this.getTopList().subscribe(val => {
+      this.topList = val;
+    })
+  }
 
   ngOnInit() {
+  }
+
+  getTopList (): Observable<any[]> {
+    return this._api.getTopList();
   }
 
 }

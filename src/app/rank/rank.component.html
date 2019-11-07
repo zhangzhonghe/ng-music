@@ -1,88 +1,9 @@
-<div class="rank-item">
-  <img class="rank-item-img" src="https://y.gtimg.cn/music/photo_new/T003R300x300M00000317mxo2NoUj6.jpg" alt="rank">
+<div class="rank-item" [routerLink]="['/rank', item.id]" *ngFor="let item of topList">
+  <img class="rank-item-img" [src]="item.picUrl" alt="rank">
   <span class="rank-item-content">
-    <div>1.I Adore You-易烊千玺</div>
-    <div>2.不爱我就别伤害我-杨顺高/凯小晴凯小晴凯小晴凯</div>
-    <div>3.千灯之约-无限王者团</div>
+    <div>1.{{ item.songList[0].songname }}-{{ item.songList[0].singername }}</div>
+    <div>2.{{ item.songList[1].songname }}-{{ item.songList[1].singername }}</div>
+    <div>3.{{ item.songList[2].songname }}-{{ item.songList[2].singername }}</div>
   </span>
 </div>
-<div class="rank-item">
-  <img class="rank-item-img" src="https://y.gtimg.cn/music/photo_new/T003R300x300M00000317mxo2NoUj6.jpg" alt="rank">
-  <span class="rank-item-content">
-    <div>1.I Adore You-易烊千玺</div>
-    <div>2.不爱我就别伤害我-杨顺高/凯小晴凯小晴凯小晴凯</div>
-    <div>3.千灯之约-无限王者团</div>
-  </span>
-</div>
-<div class="rank-item">
-  <img class="rank-item-img" src="https://y.gtimg.cn/music/photo_new/T003R300x300M00000317mxo2NoUj6.jpg" alt="rank">
-  <span class="rank-item-content">
-    <div>1.I Adore You-易烊千玺</div>
-    <div>2.不爱我就别伤害我-杨顺高/凯小晴凯小晴凯小晴凯</div>
-    <div>3.千灯之约-无限王者团</div>
-  </span>
-</div>
-<div class="rank-item">
-  <img class="rank-item-img" src="https://y.gtimg.cn/music/photo_new/T003R300x300M00000317mxo2NoUj6.jpg" alt="rank">
-  <span class="rank-item-content">
-    <div>1.I Adore You-易烊千玺</div>
-    <div>2.不爱我就别伤害我-杨顺高/凯小晴凯小晴凯小晴凯</div>
-    <div>3.千灯之约-无限王者团</div>
-  </span>
-</div>
-<div class="rank-item">
-  <img class="rank-item-img" src="https://y.gtimg.cn/music/photo_new/T003R300x300M00000317mxo2NoUj6.jpg" alt="rank">
-  <span class="rank-item-content">
-    <div>1.I Adore You-易烊千玺</div>
-    <div>2.不爱我就别伤害我-杨顺高/凯小晴凯小晴凯小晴凯</div>
-    <div>3.千灯之约-无限王者团</div>
-  </span>
-</div>
-<div class="rank-item">
-  <img class="rank-item-img" src="https://y.gtimg.cn/music/photo_new/T003R300x300M00000317mxo2NoUj6.jpg" alt="rank">
-  <span class="rank-item-content">
-    <div>1.I Adore You-易烊千玺</div>
-    <div>2.不爱我就别伤害我-杨顺高/凯小晴凯小晴凯小晴凯</div>
-    <div>3.千灯之约-无限王者团</div>
-  </span>
-</div>
-<div class="rank-item">
-  <img class="rank-item-img" src="https://y.gtimg.cn/music/photo_new/T003R300x300M00000317mxo2NoUj6.jpg" alt="rank">
-  <span class="rank-item-content">
-    <div>1.I Adore You-易烊千玺</div>
-    <div>2.不爱我就别伤害我-杨顺高/凯小晴凯小晴凯小晴凯</div>
-    <div>3.千灯之约-无限王者团</div>
-  </span>
-</div>
-<div class="rank-item">
-  <img class="rank-item-img" src="https://y.gtimg.cn/music/photo_new/T003R300x300M00000317mxo2NoUj6.jpg" alt="rank">
-  <span class="rank-item-content">
-    <div>1.I Adore You-易烊千玺</div>
-    <div>2.不爱我就别伤害我-杨顺高/凯小晴凯小晴凯小晴凯</div>
-    <div>3.千灯之约-无限王者团</div>
-  </span>
-</div>
-<div class="rank-item">
-  <img class="rank-item-img" src="https://y.gtimg.cn/music/photo_new/T003R300x300M00000317mxo2NoUj6.jpg" alt="rank">
-  <span class="rank-item-content">
-    <div>1.I Adore You-易烊千玺</div>
-    <div>2.不爱我就别伤害我-杨顺高/凯小晴凯小晴凯小晴凯</div>
-    <div>3.千灯之约-无限王者团</div>
-  </span>
-</div>
-<div class="rank-item">
-  <img class="rank-item-img" src="https://y.gtimg.cn/music/photo_new/T003R300x300M00000317mxo2NoUj6.jpg" alt="rank">
-  <span class="rank-item-content">
-    <div>1.I Adore You-易烊千玺</div>
-    <div>2.不爱我就别伤害我-杨顺高/凯小晴凯小晴凯小晴凯</div>
-    <div>3.千灯之约-无限王者团</div>
-  </span>
-</div>
-<div class="rank-item">
-  <img class="rank-item-img" src="https://y.gtimg.cn/music/photo_new/T003R300x300M00000317mxo2NoUj6.jpg" alt="rank">
-  <span class="rank-item-content">
-    <div>1.I Adore You-易烊千玺</div>
-    <div>2.不爱我就别伤害我-杨顺高/凯小晴凯小晴凯小晴凯</div>
-    <div>3.千灯之约-无限王者团</div>
-  </span>
-</div>
+<router-outlet></router-outlet>

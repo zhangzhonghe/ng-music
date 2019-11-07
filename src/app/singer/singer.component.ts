@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-singer',
@@ -6,7 +7,7 @@ import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
   styleUrls: ['./singer.component.css']
 })
 export class SingerComponent implements OnInit {
-  singerList: any[];
+  singerList: any[] = [];
   groupTitle: string = '热门';
   offsetTopOfGroupTitles: number[];
   scrollTop: number = 0;
@@ -16,8 +17,13 @@ export class SingerComponent implements OnInit {
     this.offsetTopOfGroupTitles = q.map(item => item.nativeElement.offsetTop);
   };
 
-  constructor() {
-    this.singerList = this.getSingerList();
+  constructor(
+    private _api: ApiService
+  ) {
+    this.getSingerList().subscribe(val => {
+      this.singerList = this._formatSingerList(val)
+        .filter(item => item.list.length);
+    });
   }
 
   ngOnInit() {
@@ -40,129 +46,29 @@ export class SingerComponent implements OnInit {
     }
   }
 
+  private _formatSingerList (list) {
+    const index = ['热门', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+    list = list.map(item => {
+      item.avatar = `https://y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000`;
+      return item;
+    });
+    
+    return index.map((item, i) => {
+      if (i === 0)
+        return {
+          title: '热门',
+          list: list.slice(0, 10)
+        };
+      return {
+        title: item,
+        list: list.filter(singer => singer.Findex === item)
+      };
+    });
+  }
+
   getSingerList () {
-    return [
-      {
-        title: '热门',
-        list: [
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-        ]
-      },
-      {
-        title: 'A',
-        list: [
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-        ]
-      },
-      {
-        title: 'B',
-        list: [
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-        ]
-      },
-      {
-        title: 'C',
-        list: [
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-        ]
-      },
-      {
-        title: 'D',
-        list: [
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-        ]
-      },
-      {
-        title: 'E',
-        list: [
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-        ]
-      },
-      {
-        title: 'F',
-        list: [
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-        ]
-      },
-      {
-        title: 'G',
-        list: [
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-          { avatar: 'https://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg?max_age=2592000', name: '薛之谦' },
-        ]
-      },
-    ]
+    return this._api.getSingerList();
   }
 
 }

@@ -3,7 +3,7 @@
     <i class="icon-back" (click)="onBack()"></i>
     <span class="hd-content">{{ title }}</span>
   </div>
-  <div class="play-btn">
+  <div class="play-btn" *ngIf="!showLoading">
     <i class="icon-play"></i>
     随机播放全部
   </div>

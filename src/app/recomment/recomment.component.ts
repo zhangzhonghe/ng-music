@@ -28,7 +28,7 @@ export class RecommentComponent implements OnInit {
 
   ngOnInit () {
     // this._api.getRecommend().subscribe();
-    this._api.getDiscList().subscribe();
+    // this._api.getDiscList().subscribe();
     // this._api.getSingerList().subscribe();
     // this._api.getSongList('7041144776').subscribe();
     // this._api.getSingerDetail('002J4UUk29y8BY').subscribe();

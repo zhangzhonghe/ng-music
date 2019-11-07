@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { of, Observable } from 'rxjs';
-import { pluck, map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { pluck, map } from 'rxjs/operators';
 import { ApiService } from '../../services/api.service';
 
 @Component({
@@ -11,23 +10,21 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./song-list-detail.component.css']
 })
 export class SongListDetailComponent implements OnInit {
-  cover: string = '';
+  @Input() cover: string = '';
+  @Input() title: string = '';
+  @Input() songs = [];
   showBg: boolean = false;
-  title: string = '';
-  songs = [];
 
   constructor(
-    private _route: ActivatedRoute,
     private _location: Location,
     private _api: ApiService
-  ) {
-    this.getSongList()
-    .subscribe(val => {
-      this.initData(val);
-    })
-  }
+  ) { }
 
   ngOnInit() {
+  }
+
+  get showLoading (): boolean {
+    return this._api.showLoading;
   }
 
   onScroll (e, coverHeight) {
@@ -41,21 +38,6 @@ export class SongListDetailComponent implements OnInit {
 
   onBack () {
     this._location.back();
-  }
-
-  getSongList (): Observable<any> {
-    return this._api.getSongList(
-      this._route.snapshot.paramMap.get('dissid')
-    );
-  }
-
-  initData (data) {
-    this.cover = data.logo;
-    this.title = data.dissname;
-    this._api.setSongsUrl(data.songlist)
-    .subscribe(val => {
-      this.songs = val;
-    })
   }
 
 }

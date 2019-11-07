@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, ViewChild, ElementRef, EventEmitter } from '@angular/core';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-player',
@@ -13,14 +14,16 @@ export class PlayerComponent implements OnInit {
   private _playModeIndex = 0;
   @ViewChild('audio', { static: false }) audio: ElementRef;
   currentSong = {
-    url: 'http://aqqmusic.tc.qq.com/amobile.music.tc.qq.com/C4000016uoBq2TeOTE.m4a?guid=6370834024&vkey=6A4F255370DCF4CFBA6F146E9E173C29204331EA4A95F480CC4758198AE6E1E54381E00B99FC6F5E87D982140FC7C7921434666CA1A1A3A6&uin=0&fromtag=38',
+    url: '',
     image: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000001ZaCQY2OxVMg.jpg?max_age=2592000',
     duration: 300,
     favorite: false,
   };
   currentTime = 0;
 
-  constructor() { }
+  constructor(
+    private _api: ApiService
+  ) { }
 
   ngOnInit() {
   }

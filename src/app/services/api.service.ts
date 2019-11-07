@@ -162,6 +162,7 @@ export class ApiService {
     this.showLoading = true;
 
     return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
+      pluck('data', 'list'),
       tap(() => this.showLoading = false)
     );
   }
@@ -183,11 +184,16 @@ export class ApiService {
     this.showLoading = true;
     
     return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
-      tap(() => this.showLoading = false)
+      tap(() => this.showLoading = false),
+      pluck('data'),
+      map(val => {
+        val['list'] = val['list'].map(item => createSong(item.musicData));
+        return val;
+      })
     );
   }
 
-  getTopList () {
+  getTopList (): Observable<any[]> {
     const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg'
 
     const query = Object.assign({}, commonParams, {
@@ -199,7 +205,8 @@ export class ApiService {
     this.showLoading = true;
     
     return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
-      tap(() => this.showLoading = false)
+      tap(() => this.showLoading = false),
+      pluck('data', 'topList')
     );
   }
 
@@ -219,7 +226,11 @@ export class ApiService {
     this.showLoading = true;
 
     return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
-      tap(() => this.showLoading = false)
+      tap(() => this.showLoading = false),
+      map(val => {
+        val['songlist'] = val['songlist'].map(item => createSong(item.data));
+        return val;
+      })
     );
   }
 

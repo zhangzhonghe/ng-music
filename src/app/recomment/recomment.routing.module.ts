@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RecommentComponent } from './recomment.component';
-import { SongListDetailComponent } from '../common/song-list-detail/song-list-detail.component';
+import { SongListComponent } from './song-list/song-list.component';
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: ':dissid',
-        component: SongListDetailComponent
+        component: SongListComponent
       }
     ]
   }

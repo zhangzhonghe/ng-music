@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { AppRoutingModule } from './app.routing.module';
-import { AppRecommentModule } from './recomment/app.recomment.module';
-import { AppRankModule } from './rank/app.rank.module';
-import { AppSearchModule } from './search/app.search.module';
-import { AppSingerModule } from './singer/app.singer.module';
-import { AppPlayerModule } from './player/app.player.module';
+import { RecommentModule } from './recomment/recomment.module';
+import { RankModule } from './rank/rank.module';
+import { SearchModule } from './search/search.module';
+import { SingerModule } from './singer/singer.module';
+import { PlayerModule } from './player/player.module';
+import { AppCommonModule } from './common/app-common.module';
 import { httpInterceptorProviders } from './http-interceptor/index';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { TabsComponent } from './tabs/tabs.component';
-import { LoadingComponent } from './common/loading/loading.component';
 
 import { ApiService } from './services/api.service';
 
@@ -24,18 +24,18 @@ import { ApiService } from './services/api.service';
     FormsModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    AppRecommentModule,
-    AppSearchModule,
-    AppSingerModule,
-    AppRankModule,
-    AppPlayerModule,
+    RecommentModule,
+    SearchModule,
+    SingerModule,
+    RankModule,
+    PlayerModule,
+    AppCommonModule,
     AppRoutingModule
   ],
   declarations: [
     AppComponent,
     HeaderComponent,
-    TabsComponent,
-    LoadingComponent
+    TabsComponent
   ],
   bootstrap: [ AppComponent ],
   providers: [

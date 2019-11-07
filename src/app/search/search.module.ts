@@ -13,4 +13,4 @@ import { SearchComponent } from './search.component';
     SearchComponent
   ]
 })
-export class AppSearchModule { }
+export class SearchModule { }
