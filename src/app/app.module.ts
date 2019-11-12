@@ -10,6 +10,8 @@ import { SearchModule } from './search/search.module';
 import { SingerModule } from './singer/singer.module';
 import { PlayerModule } from './player/player.module';
 import { AppCommonModule } from './common/app-common.module';
+import { UserModule } from './user/user.module';
+import { MiniPlayerModule } from './mini-player/mini-player.module';
 import { httpInterceptorProviders } from './http-interceptor/index';
 
 import { AppComponent } from './app.component';
@@ -17,6 +19,8 @@ import { HeaderComponent } from './header/header.component';
 import { TabsComponent } from './tabs/tabs.component';
 
 import { ApiService } from './services/api.service';
+import { PlayerService } from './services/player.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   imports: [
@@ -30,6 +34,8 @@ import { ApiService } from './services/api.service';
     RankModule,
     PlayerModule,
     AppCommonModule,
+    UserModule,
+    MiniPlayerModule,
     AppRoutingModule
   ],
   declarations: [
@@ -40,6 +46,8 @@ import { ApiService } from './services/api.service';
   bootstrap: [ AppComponent ],
   providers: [
     ApiService,
+    PlayerService,
+    UserService,
     httpInterceptorProviders
   ]
 })

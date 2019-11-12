@@ -28,6 +28,11 @@
   position: relative;
   color: #fff;
   text-align: center;
+  margin-left: 40px;
+  margin-right: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .song-name {

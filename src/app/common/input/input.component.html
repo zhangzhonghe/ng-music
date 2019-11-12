@@ -1,0 +1,3 @@
+<i class="icon-search"></i>
+<input class="search-input" [(ngModel)]="innerValue" [placeholder]="placeholder" type="text">
+<i class="icon-dismiss" [hidden]="!innerValue" (click)="onEmpty()"></i>

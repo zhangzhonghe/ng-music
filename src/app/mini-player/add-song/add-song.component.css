@@ -1,0 +1,94 @@
+:host {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: #222;
+}
+
+.title {
+  font-size: 18px;
+  color: #fff;
+  line-height: 44px;
+  text-align: center;
+}
+
+.icon-close {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+  padding: 12px;
+  vertical-align: -2px;
+}
+
+.tabs {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, .3);
+  margin-top: 10px;
+  height: 32px;
+}
+
+.tab {
+  display: inline-block;
+  width: 120px;
+  padding: 8px;
+  line-height: 1;
+  border: 1px solid #333;
+  box-sizing: border-box;
+}
+
+.br-left {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.br-right {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.active {
+  background-color: #333;
+  color: #fff;
+}
+
+.song-list {
+  padding: 20px 30px;
+  font-size: 14px;
+  color: #fff;
+  line-height: 1.6;
+  height: calc(100% - 164px);
+  margin-top: 10px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.song-info {
+  color: rgba(255, 255, 255, .3);
+}
+
+.song {
+  padding: 10px 0;
+}
+
+.search-history-list {
+  font-size: 20px;
+  color: rgba(255, 255, 255, .5);
+  padding: 20px 22px 20px 30px;
+  height: calc(100% - 164px);
+  margin-top: 10px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px  ;
+}
+
+.icon-delete {
+  font-size: 12px;
+  color: rgba(255, 255, 255, .3);
+  padding: 8px;
+} 

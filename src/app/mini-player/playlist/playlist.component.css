@@ -1,0 +1,99 @@
+:host {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: rgba(0,0,0,.3);
+}
+
+.playlist-main {
+  background-color: #333;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.playlist-hd {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  padding: 20px 20px 10px 20px;
+}
+
+.playlist-hd [class^=icon-] {
+  color: rgba(255,205,49,.5);
+}
+
+.play-mode {
+  font-size: 14px;
+  color: rgba(255, 255, 255, .5);
+  flex: 1;
+  margin-left: 10px;
+}
+
+.icon-clear {
+  font-size: 14px;
+  color: hsla(0,0%,100%,.3);
+  padding: 10px;
+}
+
+.playlist-content {
+  max-height: 240px;
+  overflow: auto;
+}
+
+.playlist-item {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding-right: 20px;
+  padding-left: 20px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, .3);
+}
+
+.song-name {
+  flex: 1;
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icon-play {
+  font-size: 12px;
+  color: rgba(255,205,49,.5);
+}
+
+.icon-favorite,
+.icon-not-favorite,
+.icon-delete {
+  font-size: 12px;
+  padding: 10px;
+}
+
+.add-song-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: 30px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, .5);
+  border: 1px solid;
+  border-radius: 30px;
+  margin: 20px auto 30px;
+}
+
+.icon-add {
+  font-size: 10px;
+  margin-right: 5px;
+  color: currentColor;
+}
+
+.close-btn {
+  font-size: 16px;
+  background-color: #222;
+  line-height: 50px;
+  text-align: center;
+  color: hsla(0,0%,100%,.5);
+}

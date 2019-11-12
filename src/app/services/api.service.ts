@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { throwError, Observable, of } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { throwError, Observable } from 'rxjs';
 import { pluck, tap, catchError, map, retry } from 'rxjs/operators';
 import { genUrlMid } from '../../third/song';
+import { UserService } from './user.service'
 
 const commonParams = {
   g_tk: '1928093487',
@@ -31,7 +32,8 @@ interface Song {
   duration: string|number,
   image: string,
   filename: string,
-  url: string
+  url: string,
+  favorite: boolean
 }
 
 function filterSinger (singer: any): string {
@@ -45,19 +47,19 @@ function filterSinger (singer: any): string {
   return ret.join('/');
 }
 
-function createSong (musicData: any): Song {
-  return {
-    id: musicData.songid,
-    mid: musicData.songmid,
-    singer: filterSinger(musicData.singer),
-    name: musicData.songname,
-    album: musicData.albumname,
-    duration: musicData.interval,
-    image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
-    url: musicData.url,
-    filename: `C400${musicData.songmid}.m4a`
-  }
-}
+// function createSong (musicData: any): Song {
+//   return {
+//     id: musicData.songid,
+//     mid: musicData.songmid,
+//     singer: filterSinger(musicData.singer),
+//     name: musicData.songname,
+//     album: musicData.albumname,
+//     duration: musicData.interval,
+//     image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
+//     url: musicData.url,
+//     filename: `C400${musicData.songmid}.m4a`
+//   }
+// }
 
 interface SliderItem {
   id: number,
@@ -70,12 +72,35 @@ export class ApiService {
   showLoading = false;
 
   constructor(
-    private _http: HttpClient
+    private _http: HttpClient,
+    private _user: UserService
   ) { }
 
   private _handleError (err: HttpErrorResponse) {
     console.error(err);
     return throwError('出现了一点问题，请稍后再试！');
+  }
+
+  createSong (musicData: any): Song {
+    const favorite = this.getFavorite(musicData.songmid);
+    
+    return {
+      id: musicData.songid,
+      mid: musicData.songmid,
+      singer: filterSinger(musicData.singer),
+      name: musicData.songname,
+      album: musicData.albumname,
+      duration: musicData.interval,
+      image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
+      url: musicData.url,
+      filename: `C400${musicData.songmid}.m4a`,
+      favorite: favorite
+    }
+  }
+
+  getFavorite (songmid): boolean {
+    const likeList = this._user.getLikeList();
+    return likeList.some(item => item.mid === songmid);
   }
 
   getRecommend (): Observable<any[]> {
@@ -139,7 +164,7 @@ export class ApiService {
       tap(() => this.showLoading = false),
       pluck('cdlist', '0'),
       map(val => {
-        val['songlist'] = val['songlist'].map(item => createSong(item));
+        val['songlist'] = val['songlist'].map(item => this.createSong(item));
         return val;
       })
     );
@@ -187,7 +212,7 @@ export class ApiService {
       tap(() => this.showLoading = false),
       pluck('data'),
       map(val => {
-        val['list'] = val['list'].map(item => createSong(item.musicData));
+        val['list'] = val['list'].map(item => this.createSong(item.musicData));
         return val;
       })
     );
@@ -228,7 +253,7 @@ export class ApiService {
     return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
       tap(() => this.showLoading = false),
       map(val => {
-        val['songlist'] = val['songlist'].map(item => createSong(item.data));
+        val['songlist'] = val['songlist'].map(item => this.createSong(item.data));
         return val;
       })
     );
@@ -243,7 +268,13 @@ export class ApiService {
       platform: 'h5'
     });
 
-    return this._http.jsonp(addQuery(url, query), 'jsonpCallback');
+    this.showLoading = true;
+
+    return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
+      tap(() => this.showLoading = false),
+      pluck('data', 'hotkey'),
+      map((val: any) => val.slice(0, 10))
+    );
   }
 
   search (data: string, page: number, zhida: boolean, perpage: number) {

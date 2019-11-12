@@ -1,0 +1,61 @@
+.recorded-content {
+  height: calc(100% - 80px);
+  overflow: auto;
+  padding: 0 20px;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, .5);
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mb-6 {
+  margin-bottom: 6px;
+}
+
+.icon-clear,
+.icon-delete {
+  font-size: 14px;
+  color: rgba(255, 255, 255, .3);
+  padding: 8px;
+}
+
+.tag {
+  display: inline-block;
+  line-height: 1;
+  font-size: 14px;
+  color: rgba(255, 255, 255, .3);
+  background-color: #333;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.hot {
+  margin-bottom: 30px;
+}
+
+.history {
+  font-size: 20px;
+  color: rgba(255, 255, 255, .5);
+  padding-bottom: 20px;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px  ;
+}

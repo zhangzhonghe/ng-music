@@ -1,0 +1,15 @@
+<div class="mini-player-container" (click)="onShowNormalPlayer()">
+  <div class="mini-cd" [class.playing]="playing">
+    <img class="mini-cd-img" [src]="currentSong?.image" [alt]="currentSong?.name">
+  </div>
+  <div class="song-info">
+    <div class="song-name t-o-e">{{ currentSong?.name }}</div>
+    <div class="song-auther t-o-e">{{ currentSong?.singer }}</div>
+  </div>
+  <div class="btn-group">
+    <i class="icon" [ngClass]="playing ? 'icon-pause-mini' : 'icon-play-mini'" (click)="$event.stopPropagation(); onPlayOrPause()"></i>
+    <i class="icon icon-playlist" (click)="$event.stopPropagation(); onShowPlaylist()"></i>
+  </div>
+</div>
+<app-playlist *ngIf="showPlaylist" (close)="onCloseList()" (add)="onAddNewSong()"></app-playlist>
+<app-add-song *ngIf="showAddSong" (close)="onCloseAddSong()"></app-add-song>

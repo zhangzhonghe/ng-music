@@ -1,5 +1,5 @@
 :host {
-  position: fixed;
+  position: absolute;
   right: 0; bottom: calc(50% - 44px);
   transform: translateY(50%);
   font-size: 12px;

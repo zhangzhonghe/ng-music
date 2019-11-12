@@ -16,14 +16,8 @@ export class ProgressBarComponent implements OnInit {
   };
   private _touching: boolean = false;
   @Input() duration: number;
-  progressBarLeft: number;
-  progressBarWidth: number;
   rateOfProgress: number = 0;
-  @ViewChild('progressWrapper', { static: false })
-  set wrapperRef(el: ElementRef) {
-    this.progressBarLeft = el.nativeElement.offsetLeft;
-    this.progressBarWidth = el.nativeElement.offsetWidth;
-  };
+  @ViewChild('progressWrapper', { static: false }) progressWrapper: ElementRef;
   @Output() changed: EventEmitter<number> = new EventEmitter();
 
   constructor() { }
@@ -37,12 +31,11 @@ export class ProgressBarComponent implements OnInit {
     of(e)
     .pipe(
       pluck('targetTouches', '0', 'clientX'),
-      map((val: number) => val - this.progressBarLeft),
-      map((val: number) => val / this.progressBarWidth),
+      map((val: number) => val - this.progressWrapper.nativeElement.offsetLeft),
+      map((val: number) => val / this.progressWrapper.nativeElement.offsetWidth),
     )
     .subscribe((val: number) => {
       this.rateOfProgress = val;
-      // this.changed.emit(val);
     })
   }
 
@@ -50,13 +43,12 @@ export class ProgressBarComponent implements OnInit {
     of(e)
     .pipe(
       pluck('targetTouches', '0', 'clientX'),
-      map((val: number) => val - this.progressBarLeft),
-      takeWhile((val: number) => val >= 0 && val <= this.progressBarWidth),
-      map((val: number) => val / this.progressBarWidth),
+      map((val: number) => val - this.progressWrapper.nativeElement.offsetLeft),
+      takeWhile((val: number) => val >= 0 && val <= this.progressWrapper.nativeElement.offsetWidth),
+      map((val: number) => val / this.progressWrapper.nativeElement.offsetWidth),
     )
     .subscribe((val: number) => {
       this.rateOfProgress = val;
-      // this.changed.emit(val);
     })
   }
 

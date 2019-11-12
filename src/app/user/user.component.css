@@ -1,0 +1,83 @@
+:host {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: #222;
+}
+
+.icon-back {
+  position: absolute;
+  top: 0; left: 0;
+  font-size: 22px;
+  padding: 10px;
+}
+
+.hd {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, .3);
+  margin-top: 10px;
+  height: 32px;
+}
+
+.tab {
+  display: inline-block;
+  width: 120px;
+  padding: 8px;
+  line-height: 1;
+  border: 1px solid #333;
+  box-sizing: border-box;
+}
+
+.br-left {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.br-right {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.active {
+  background-color: #333;
+  color: #fff;
+}
+
+.play-btn {
+  font-size: 12px;
+  color: rgba(255, 255, 255, .5);
+  line-height: 30px;
+  height: 30px;
+  width: 135px;
+  margin: auto;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 32px;
+  margin-top: 30px;
+}
+
+.icon-play {
+  color: rgba(255, 255, 255, .5);
+  font-size: 1.2em;
+  vertical-align: -2px;
+  margin-right: 4px;
+}
+
+.song-list {
+  padding: 20px 30px;
+  font-size: 14px;
+  color: #fff;
+  line-height: 1.6;
+  height: calc(100% - 124px);
+  margin-top: 20px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.song-info {
+  color: rgba(255, 255, 255, .3);
+}
+
+.song {
+  padding: 10px 0;
+}

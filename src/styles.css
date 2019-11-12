@@ -5,6 +5,7 @@ html, body {
   margin: 0;
   height: 100%;
   overflow: hidden;
+  font-family: PingFang SC,STHeitiSC-Light,Helvetica-Light,arial,sans-serif;
 }
 
 body {

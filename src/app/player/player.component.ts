@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, ViewChild, ElementRef, EventEmitter } from '@angular/core';
-import { ApiService } from '../services/api.service';
+import { PlayerService } from '../services/player.service';
 
 @Component({
   selector: 'app-player',
@@ -9,58 +9,56 @@ import { ApiService } from '../services/api.service';
 export class PlayerComponent implements OnInit {
   @Input() showLyric = false;
   @Output() closed: EventEmitter<undefined> = new EventEmitter();
-  playing = false;
-  private _playModes: string[] = ['sequence', 'loop', 'random'];
-  private _playModeIndex = 0;
   @ViewChild('audio', { static: false }) audio: ElementRef;
-  currentSong = {
-    url: '',
-    image: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000001ZaCQY2OxVMg.jpg?max_age=2592000',
-    duration: 300,
-    favorite: false,
-  };
-  currentTime = 0;
 
   constructor(
-    private _api: ApiService
+    private _player: PlayerService
   ) { }
 
   ngOnInit() {
+    this._player.playing$.subscribe(() => this.onPlayOrPause());
+  }
+
+  get currentSong () {
+    return this._player.currentSong;
   }
 
   get playMode (): string {
-    return this._playModes[this._playModeIndex];
+    return this._player.playMode;
   }
 
   get progress () {
-    return this.currentTime / this.currentSong['duration'];
+    return this._player.progress;
+  }
+
+  get playing () {
+    return this._player.playing;
   }
 
   onPlayOrPause () {
-    if (this.playing) this.audio.nativeElement.pause();
+    if (this._player.playing) this.audio.nativeElement.pause();
     else  this.audio.nativeElement.play();
   }
 
   onSwitchMode () {
-    this._playModeIndex++;
-    this._playModeIndex = this._playModeIndex % this._playModes.length;
+    this._player.switchMode();
   }
 
   onSwitchFavorite () {
-    this.currentSong['favorite'] = !this.currentSong['favorite'];
+    this._player.switchFavorite();
   }
 
   onPrevSong() {
-    
+    this._player.playPrevSong();
   }
 
   onNextSong() {
-
+    this._player.playNextSong();
   }
 
-  onProgressChanged (val: number) {
-    this.currentTime = val * this.currentSong['duration'];
-    this.audio.nativeElement.currentTime = this.currentTime;
+  onChangedProgress (val: number) {
+    this._player.currentTime = val * this.currentSong.duration;
+    this.audio.nativeElement.currentTime = this._player.currentTime;
     this.audio.nativeElement.play();
   }
 
@@ -68,16 +66,24 @@ export class PlayerComponent implements OnInit {
     this.showLyric = !this.showLyric;
   }
 
+  onCanPlay () {
+    this.audio.nativeElement.play();
+  }
+
   onPlaying () {
-    this.playing = true;
+    this._player.playing = true;
   }
 
   onPause () {
-    this.playing = false;
+    this._player.playing = false;
+  }
+
+  onEnded () {
+    this._player.playNextSong();
   }
 
   onTimeUpdate (e) {
-    this.currentTime = e.target.currentTime;
+    this._player.currentTime = e.target.currentTime;
   }
 
   onClose () {

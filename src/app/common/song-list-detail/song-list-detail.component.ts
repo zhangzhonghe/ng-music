@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { of } from 'rxjs';
 import { pluck, map } from 'rxjs/operators';
 import { ApiService } from '../../services/api.service';
+import { PlayerService } from '../../services/player.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-song-list-detail',
@@ -17,7 +19,9 @@ export class SongListDetailComponent implements OnInit {
 
   constructor(
     private _location: Location,
-    private _api: ApiService
+    private _api: ApiService,
+    private _player: PlayerService,
+    private _user: UserService
   ) { }
 
   ngOnInit() {
@@ -38,6 +42,21 @@ export class SongListDetailComponent implements OnInit {
 
   onBack () {
     this._location.back();
+  }
+
+  onPlayAll () {
+    this._player.playModeIndex = 2; // 随机播放
+    this._player.currentList = this.songs;
+    this._player.randomPlay();
+    this._player.showNormalPlayer = true;
+    this._player.showMiniPlayer = true;
+  }
+
+  onPlaySong (i: number) {
+    this._player.currentList = this.songs;
+    this._player.currentIndex = i;
+    this._player.showNormalPlayer = true;
+    this._player.showMiniPlayer = true;
   }
 
 }

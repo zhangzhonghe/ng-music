@@ -1,7 +1,10 @@
-<app-header></app-header>
-<app-tabs></app-tabs>
-<div class="app-main" [style.height]="'calc(100% - 88px)'">
-  <router-outlet></router-outlet>
+<div class="app-box" [style.bottom]="showMiniPlayer ? '60px' : 0">
+  <app-header></app-header>
+  <app-tabs></app-tabs>
+  <div class="app-main" [style.height]="'calc(100% - 88px)'">
+    <router-outlet></router-outlet>
+  </div>
+  <app-loading [hidden]="!showLoading" class="app-loading"></app-loading>
 </div>
-<app-player [ngClass]="showNormalPlayer ? 'show': 'hidden'" (closed)="onHiddenPlayer()"></app-player>
-<app-loading *ngIf="showLoading" class="app-loading"></app-loading>
+<app-player *ngIf="currentSong" [hidden]="!showNormalPlayer" (closed)="onHiddenPlayer()"></app-player>
+<app-mini-player *ngIf="showMiniPlayer"></app-mini-player>
