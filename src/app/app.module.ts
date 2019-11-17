@@ -24,6 +24,8 @@ import { PlayerService } from './services/player.service';
 import { UserService } from './services/user.service';
 import { ModalService } from './services/modal.service';
 import { MessageService } from './services/message.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   imports: [
@@ -40,7 +42,8 @@ import { MessageService } from './services/message.service';
     AppCommonModule,
     UserModule,
     MiniPlayerModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   declarations: [
     AppComponent,
