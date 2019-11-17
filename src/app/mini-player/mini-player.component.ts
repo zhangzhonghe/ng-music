@@ -10,12 +10,17 @@ import { PlayerService } from '../services/player.service';
 export class MiniPlayerComponent implements OnInit {
   showPlaylist = false;
   showAddSong = false;
+  currentLyric = '歌词加载中';
   
   constructor(
     private _player: PlayerService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this._player.currentLyric$.subscribe(({txt}) => {
+      this.currentLyric = txt;
+    });
+  }
 
   get currentSong () {
     return this._player.currentSong;

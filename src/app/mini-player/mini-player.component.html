@@ -4,7 +4,8 @@
   </div>
   <div class="song-info">
     <div class="song-name t-o-e">{{ currentSong?.name }}</div>
-    <div class="song-auther t-o-e">{{ currentSong?.singer }}</div>
+    <!-- <div class="song-auther t-o-e">{{ currentSong?.singer }}</div> -->
+    <div class="song-auther t-o-e">{{ currentLyric }}</div>
   </div>
   <div class="btn-group">
     <i class="icon" [ngClass]="playing ? 'icon-pause-mini' : 'icon-play-mini'" (click)="$event.stopPropagation(); onPlayOrPause()"></i>
