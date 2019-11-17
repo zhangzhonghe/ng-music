@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientJsonpModule } from '@angular/common/http';
@@ -21,10 +22,13 @@ import { TabsComponent } from './tabs/tabs.component';
 import { ApiService } from './services/api.service';
 import { PlayerService } from './services/player.service';
 import { UserService } from './services/user.service';
+import { ModalService } from './services/modal.service';
+import { MessageService } from './services/message.service';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     HttpClientJsonpModule,
@@ -48,6 +52,8 @@ import { UserService } from './services/user.service';
     ApiService,
     PlayerService,
     UserService,
+    ModalService,
+    MessageService,
     httpInterceptorProviders
   ]
 })

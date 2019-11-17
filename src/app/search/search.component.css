@@ -1,7 +1,5 @@
-.recorded-content {
+.main-x {
   height: calc(100% - 80px);
-  overflow: auto;
-  padding: 0 20px;
 }
 
 .title {
@@ -58,4 +56,9 @@
   justify-content: space-between;
   align-items: center;
   height: 40px  ;
+}
+
+.recorded-content {
+  overflow: auto;
+  padding: 0 20px;
 }

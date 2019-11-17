@@ -2,188 +2,25 @@
   <span>添加歌曲到列表</span>
   <i class="icon-close" (click)="onClose()"></i>
 </div>
-<app-input placeholder="搜索歌曲"></app-input>
-<div class="tabs">
-  <span class="tab br-left" [class.active]="currentTab === 'recent-play'" (click)="onSelectedRecentPlay()">最近播放</span>
-  <span class="tab br-right" [class.active]="currentTab === 'search-history'" (click)="onSelectedSearchHistory()">搜索历史</span>
-</div>
-<div class="song-list" *ngIf="currentTab === 'recent-play'">
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
+<app-input [(value)]="searchText" placeholder="搜索歌曲"></app-input>
+<ng-container *ngIf="!searchText">
+  <div class="tabs">
+    <span class="tab br-left" [class.active]="currentTab === 'recent-play'" (click)="onSelectedRecentPlay()">最近播放</span>
+    <span class="tab br-right" [class.active]="currentTab === 'search-history'" (click)="onSelectedSearchHistory()">搜索历史</span>
   </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
+  <div class="song-list" *ngIf="currentTab === 'recent-play'">
+    <div class="song" *ngFor="let song of recentList; trackBy: trackByFn" (click)="onAddNewSong(song)">
+      <div class="song-name">{{song.name}}</div>
+      <div class="song-info">{{song.singer + '·' + song.album}}</div>
+    </div>
   </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
+  <div class="search-history-list" *ngIf="currentTab === 'search-history'">
+    <div class="history-item" *ngFor="let his of searchHistoryList" (click)="searchText = his">
+      <span>{{his}}</span>
+      <i class="icon-delete"></i>
+    </div>
   </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-</div>
-<div class="search-history-list" *ngIf="currentTab === 'search-history'">
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
-  <div class="history-item">
-    <span>哇哇哇</span>
-    <i class="icon-delete"></i>
-  </div>
+</ng-container>
+<div class="search-result" *ngIf="searchText">
+  <app-search-result [text]="searchText" [showSinger]="false" [showPlayer]="false"></app-search-result>
 </div>

@@ -40,6 +40,10 @@ export class RecommentComponent implements OnInit {
     // this._api.setSongsUrl([{mid: "003G9ZSa4REsPc"}]).subscribe();
   }
 
+  get showLoading () {
+    return this._api.showLoading;
+  }
+
   getImgList (): Observable<any[]> {
     return this._api.getRecommend()
     .pipe(

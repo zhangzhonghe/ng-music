@@ -1,0 +1,11 @@
+<div class="scroll-x" (scroll)="onScrollSearchResult($event)">
+  <div class="result-item tof-e" *ngIf="showSinger && singer" [routerLink]="['/singer', singer?.singermid]" (click)="onSelectedSinger()">
+    <i class="icon-mine"></i>
+    <span>{{singer?.singername}}</span>
+  </div>
+  <div class="result-item tof-e" *ngFor="let song of resultList" (click)="onSelectedSong(song)">
+    <i class="icon-music"></i>
+    <span>{{song.name}}-{{song.singer}}</span>
+  </div>
+  <app-loading class="search-loading" [class.hidden]="!showLoading"></app-loading>
+</div>

@@ -1,0 +1,36 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-x {
+  height: 100%;
+  overflow: auto;
+  padding: 0 20px;
+}
+
+.result-item {
+  font-size: 14px;
+  color: rgba(255, 255, 255, .3);
+  font-weight: 400;
+  line-height: 2.8;
+}
+
+.icon-music,
+.icon-mine {
+  color: currentColor;
+  margin-right: 1em;
+  margin-left: .5em;
+  vertical-align: middle;
+}
+
+.search-loading {
+  display: block;
+  height: 6vw;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.hidden {
+  opacity: 0;
+}

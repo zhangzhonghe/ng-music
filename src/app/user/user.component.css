@@ -64,6 +64,7 @@
 }
 
 .song-list {
+  position: relative;
   padding: 20px 30px;
   font-size: 14px;
   color: #fff;

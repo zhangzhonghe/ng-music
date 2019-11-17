@@ -1,15 +1,16 @@
+<div class="bg-btn" (click)="onClose()"></div>
 <div class="playlist-main">
   <div class="playlist-hd">
     <i [class]="'icon-' + playMode" (click)="onSwitchPlayMode()"></i>
     <span class="play-mode">{{ translatePlayMode }}</span>
-    <i class="icon-clear"></i>
+    <i class="icon-clear" (click)="onClear()"></i>
   </div>
   <div class="playlist-content">
-    <div class="playlist-item" *ngFor="let song of currentList; index as i">
+    <div class="playlist-item" *ngFor="let song of currentList; index as i" (click)="onPlaySong(i)">
       <i class="icon-play" [style.opacity]="i !== currentIndex ? '0' : '1'"></i>
       <span class="song-name">{{ song.name }}</span>
-      <i [class]="song.favorite ? 'icon-favorite' : 'icon-not-favorite'"></i>
-      <i class="icon-delete"></i>
+      <i [class]="song.favorite ? 'icon-favorite' : 'icon-not-favorite'" (click)="$event.stopPropagation(); onSwitchFavorite(song)"></i>
+      <i class="icon-delete" (click)="$event.stopPropagation(); onDeleteSong(song)"></i>
     </div>
   </div>
   <div class="add-song-btn" (click)="onAddSong()">

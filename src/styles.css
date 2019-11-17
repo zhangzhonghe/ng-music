@@ -15,3 +15,17 @@ body {
 [class*=icon-] {
   color: #ffcd32;
 }
+
+.tof-e {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-loading {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 10vw;
+  text-align: center;
+}

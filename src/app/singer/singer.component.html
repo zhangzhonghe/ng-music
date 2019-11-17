@@ -10,3 +10,4 @@
 </div>
 <app-nav-bar [list]="singerList" [active]="active" (selected)="onSelectedOfNavBar($event)"></app-nav-bar>
 <router-outlet></router-outlet>
+<app-loading [hidden]="!showLoading" class="app-loading"></app-loading>

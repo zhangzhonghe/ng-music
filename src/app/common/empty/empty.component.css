@@ -1,0 +1,22 @@
+:host {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  height: 180px;
+  margin: auto;
+  text-align: center;
+  line-height: 1;
+}
+
+.bg-img {
+  width: 86px;
+  height: 90px;
+  margin: auto;
+  background-size: 100% 100%;
+}
+
+.prompt {
+  display: inline-block;
+  color: rgba(255, 255, 255, .3);
+  margin-top: 30px;
+  font-size: 14px;
+}

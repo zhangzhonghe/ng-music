@@ -4,7 +4,8 @@
   <div class="app-main" [style.height]="'calc(100% - 88px)'">
     <router-outlet></router-outlet>
   </div>
-  <app-loading [hidden]="!showLoading" class="app-loading"></app-loading>
 </div>
-<app-player *ngIf="currentSong" [hidden]="!showNormalPlayer" (closed)="onHiddenPlayer()"></app-player>
+<app-player *ngIf="currentSong" (closed)="onHiddenPlayer()"></app-player>
 <app-mini-player *ngIf="showMiniPlayer"></app-mini-player>
+<app-modal></app-modal>
+<app-message></app-message>

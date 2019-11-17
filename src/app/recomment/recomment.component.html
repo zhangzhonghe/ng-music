@@ -4,3 +4,4 @@
   <app-song-list-item [routerLink]="['/recomment', disc.dissid]" [info]="disc"></app-song-list-item>
 </ng-container>
 <router-outlet></router-outlet>
+<app-loading [hidden]="!showLoading" class="app-loading"></app-loading>

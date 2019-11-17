@@ -4,6 +4,7 @@ import { throwError, Observable } from 'rxjs';
 import { pluck, tap, catchError, map, retry } from 'rxjs/operators';
 import { genUrlMid } from '../../third/song';
 import { UserService } from './user.service'
+import { PlayerService } from './player.service'
 
 const commonParams = {
   g_tk: '1928093487',
@@ -73,11 +74,13 @@ export class ApiService {
 
   constructor(
     private _http: HttpClient,
-    private _user: UserService
+    private _user: UserService,
+    private _player: PlayerService
   ) { }
 
   private _handleError (err: HttpErrorResponse) {
     console.error(err);
+    this._player.playNextSong();
     return throwError('出现了一点问题，请稍后再试！');
   }
 
@@ -161,7 +164,7 @@ export class ApiService {
 
     return this._http.get(addQuery(url, query)).pipe(
       catchError(this._handleError),
-      tap(() => this.showLoading = false),
+      // tap(() => this.showLoading = false),
       pluck('cdlist', '0'),
       map(val => {
         val['songlist'] = val['songlist'].map(item => this.createSong(item));
@@ -187,6 +190,7 @@ export class ApiService {
     this.showLoading = true;
 
     return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
+      catchError(this._handleError),
       pluck('data', 'list'),
       tap(() => this.showLoading = false)
     );
@@ -209,7 +213,8 @@ export class ApiService {
     this.showLoading = true;
     
     return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
-      tap(() => this.showLoading = false),
+      catchError(this._handleError),
+      // tap(() => this.showLoading = false),
       pluck('data'),
       map(val => {
         val['list'] = val['list'].map(item => this.createSong(item.musicData));
@@ -230,6 +235,7 @@ export class ApiService {
     this.showLoading = true;
     
     return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
+      catchError(this._handleError),
       tap(() => this.showLoading = false),
       pluck('data', 'topList')
     );
@@ -251,7 +257,8 @@ export class ApiService {
     this.showLoading = true;
 
     return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
-      tap(() => this.showLoading = false),
+      catchError(this._handleError),
+      // tap(() => this.showLoading = false),
       map(val => {
         val['songlist'] = val['songlist'].map(item => this.createSong(item.data));
         return val;
@@ -271,6 +278,7 @@ export class ApiService {
     this.showLoading = true;
 
     return this._http.jsonp(addQuery(url, query), 'jsonpCallback').pipe(
+      catchError(this._handleError),
       tap(() => this.showLoading = false),
       pluck('data', 'hotkey'),
       map((val: any) => val.slice(0, 10))
@@ -302,11 +310,14 @@ export class ApiService {
     this.showLoading = true;
 
     return this._http.get(addQuery(url, query)).pipe(
-      tap(() => this.showLoading = false)
+      catchError(this._handleError),
+      tap(() => this.showLoading = false),
+      pluck('data'),
+      tap((val: any) => val.song.list = val.song.list.map(item => this.createSong(item)))
     );
   }
 
-  getLyric (mid) {
+  getLyric (mid): Observable<any> {
     const url = 'https://www.mu-zi.xyz/api/lyric';
 
     const query = Object.assign({}, commonParams, {
@@ -319,7 +330,9 @@ export class ApiService {
       format: 'json'
     });
 
-    return this._http.get(addQuery(url, query));
+    return this._http.get(addQuery(url, query)).pipe(
+      catchError(this._handleError)
+    )
   }
 
   setSongsUrl (songs) {
@@ -387,7 +400,8 @@ export class ApiService {
           return false;
         });
         return songs;
-      })
+      }),
+      tap(() => this.showLoading = false)
     );
   }
 }

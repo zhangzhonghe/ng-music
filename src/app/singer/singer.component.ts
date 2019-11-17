@@ -29,6 +29,10 @@ export class SingerComponent implements OnInit {
   ngOnInit() {
   }
 
+  get showLoading () {
+    return this._api.showLoading;
+  }
+
   onScroll (e) {
     const firstIndex = this.offsetTopOfGroupTitles.findIndex(item => e.target.scrollTop < item);
     this.active = firstIndex >= 0 ? firstIndex - 1 : this.offsetTopOfGroupTitles.length - 1;

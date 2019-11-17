@@ -85,11 +85,17 @@
   display: none;
   text-align: center;
   height: 100%;
+  overflow: auto;
 }
 
 .normal-lyric-item {
   color: rgba(255, 255, 255, .5);
   font-size: 14px;
+  line-height: 32px;
+}
+
+.active {
+  color: #fff;
 }
 
 .cd-turning {

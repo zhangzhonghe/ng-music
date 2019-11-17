@@ -1,0 +1,9 @@
+<div class="bg" *ngIf="show">
+  <div class="modal-x" @showHidden>
+    <div class="modal-title">{{content}}</div>
+    <div class="btn-g">
+      <span class="btn-item br-r" (click)="onCancel()">取消</span>
+      <span class="btn-item" (click)="onConfirm()">清空</span>
+    </div>
+  </div>
+</div>

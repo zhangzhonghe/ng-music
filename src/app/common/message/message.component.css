@@ -1,0 +1,18 @@
+:host {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.message-x {
+  font-size: 14px;
+  padding: 18px;
+  text-align: center;
+  color: #fff;
+  line-height: 1;
+  background-color: #666;
+}
+
+[class^=icon-] {
+  margin-right: .3em;
+}

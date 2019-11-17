@@ -19,6 +19,7 @@ export class ProgressBarComponent implements OnInit {
   rateOfProgress: number = 0;
   @ViewChild('progressWrapper', { static: false }) progressWrapper: ElementRef;
   @Output() changed: EventEmitter<number> = new EventEmitter();
+  @Output() move: EventEmitter<number> = new EventEmitter();
 
   constructor() { }
 
@@ -49,6 +50,7 @@ export class ProgressBarComponent implements OnInit {
     )
     .subscribe((val: number) => {
       this.rateOfProgress = val;
+      this.move.emit(this.rateOfProgress);
     })
   }
 

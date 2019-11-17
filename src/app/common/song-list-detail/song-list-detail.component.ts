@@ -4,7 +4,6 @@ import { of } from 'rxjs';
 import { pluck, map } from 'rxjs/operators';
 import { ApiService } from '../../services/api.service';
 import { PlayerService } from '../../services/player.service';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-song-list-detail',
@@ -20,8 +19,7 @@ export class SongListDetailComponent implements OnInit {
   constructor(
     private _location: Location,
     private _api: ApiService,
-    private _player: PlayerService,
-    private _user: UserService
+    private _player: PlayerService
   ) { }
 
   ngOnInit() {

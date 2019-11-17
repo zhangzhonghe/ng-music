@@ -82,9 +82,3 @@
   font-size: 14px;
   vertical-align: -2px;
 }
-
-.tof-e {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}

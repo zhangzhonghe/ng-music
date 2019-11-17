@@ -21,6 +21,10 @@ export class RankComponent implements OnInit {
   ngOnInit() {
   }
 
+  get showLoading () {
+    return this._api.showLoading;
+  }
+
   getTopList (): Observable<any[]> {
     return this._api.getTopList();
   }

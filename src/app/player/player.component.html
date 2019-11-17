@@ -7,14 +7,14 @@
 <div class="normal-player-bd" (click)="onSwitchLyric()">
   <div class="cd-turning" [class.show]="!showLyric">
     <app-cd-circle [imgUrl]="currentSong?.image" [playing]="playing"></app-cd-circle>
-    <div class="mini-lyric">这里是歌词</div>
+    <div class="mini-lyric">{{currentLyric || '歌词加载中'}}</div>
   </div>
-  <div class="normal-lyric" [class.show]="showLyric">
-    <span class="normal-lyric-item">这里是歌词</span>
+  <div class="normal-lyric" [class.show]="showLyric" #lyricRef>
+    <div class="normal-lyric-item" [class.active]="i === curNum" *ngFor="let lyric of lyricList; index as i">{{lyric.txt}}</div>
   </div>
 </div>
 <div class="normal-player-ft">
-  <app-progress-bar [progress]="progress" [duration]="currentSong?.duration" (changed)="onChangedProgress($event)"></app-progress-bar>
+  <app-progress-bar [progress]="progress" [duration]="currentSong?.duration" (changed)="onChangedProgress($event)" (move)="onMoveProgress($event)"></app-progress-bar>
   <div class="normal-player-btn-group">
     <i [class]="'icon-' + playMode" (click)="onSwitchMode()"></i>
     <i class="icon-prev" (click)="onPrevSong()"></i>

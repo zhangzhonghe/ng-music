@@ -18,10 +18,6 @@ export class AppComponent  {
     return this._player.currentSong;
   }
 
-  get showLoading () {
-    return this._api.showLoading;
-  }
-
   get showNormalPlayer () {
     return this._player.showNormalPlayer;
   }

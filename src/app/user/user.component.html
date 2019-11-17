@@ -1,71 +1,16 @@
 <i class="icon-back" (click)="onBack()"></i>
 <div class="hd">
   <span class="tab br-left" [class.active]="currentTab === 'like'" (click)="onSelectedLike()">我喜欢的</span>
-  <span class="tab br-right" [class.active]="currentTab === 'history'" (click)="onSelectedHistory()">最近听的</span>
+  <span class="tab br-right" [class.active]="currentTab === 'history'" (click)="onSelectedRecent()">最近听的</span>
 </div>
-<div class="play-btn">
+<div class="play-btn" (click)="onPlayAll()">
   <i class="icon-play"></i>
   <span>随机播放全部</span>
 </div>
 <div class="song-list">
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
+  <div class="song" *ngFor="let song of songList; index as i" (click)="onPlaySong(i)">
+    <div class="song-name">{{song.name}}</div>
+    <div class="song-info">{{song.singer + '·' + song.album}}</div>
   </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
-  <div class="song">
-    <div class="song-name">身骑白马 (Live)</div>
-    <div class="song-info">周深·蒙面唱将猜猜猜 第6期</div>
-  </div>
+  <app-empty *ngIf="!songList.length" [content]="emptyContent"></app-empty>
 </div>
