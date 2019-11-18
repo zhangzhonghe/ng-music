@@ -98,6 +98,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   };
   private _playingSubscription: Subscription;
   private _lyricSubscription: Subscription;
+  private _moving = false;
 
   constructor(
     private _player: PlayerService,
@@ -160,7 +161,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   setLyric (mid) {
     this._api.getLyric(mid).subscribe(data => {
       this._player.lyric && this._player.lyric.stop();
-      this._player.lyric = new Lyric(Base64.decode(data.lyric), (data) => this._player.lyricHandle(data));
+      this._player.lyric = new Lyric(Base64.decode(data.lyric), data => this._player.currentLyric$.next(data));
 
       if (this._player.lyric.lines.length === 0) {
 
@@ -169,15 +170,10 @@ export class PlayerComponent implements OnInit, OnDestroy {
       } else {
 
         // 有歌词时
-        this._player.currentLyric$.next({txt: ''}); // 把上次的歌词清空
-        this._player.lyric.play();
+        this._player.currentLyric$.next({txt: '', lineNum: 0}); // 把上次的歌词清空
+        // this._player.lyric.play();
         this.curNum = 0;  // 此时可能是上一首歌的位置，当切换歌曲时，需要重置
         this.scrollToCurrent();
-
-        // 此时currentTime可能还是上一首歌曲的时间，所以异步执行它，以等待currentTime更新
-        setTimeout(() => {
-          this._player.lyric.seek(this._player.currentTime * 1000);
-        }, 100);
       };
     });
   }
@@ -205,21 +201,21 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   onPrevSong() {
     this._player.playPrevSong();
-    this.scrollToCurrent();
   }
 
   onNextSong() {
     this._player.playNextSong();
-    this.scrollToCurrent();
   }
 
   onChangedProgress (val: number) {
+    this._moving = false;
     this._player.currentTime = val * this.currentSong.duration;
     this.audio.nativeElement.currentTime = this._player.currentTime;
     this.audio.nativeElement.play();
   }
 
   onMoveProgress (val: number) {
+    this._moving = true;
     this._player.lyric && this._player.lyric.seek(val * this.currentSong.duration * 1000);
   }
 
@@ -232,13 +228,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   onCanPlay () {
     this.audio.nativeElement.play();
-    this._player.lyric && this._player.lyric.seek(this._player.currentTime * 1000);
     this._user.addSongToRecentList(this.currentSong);
   }
 
   onPlaying () {
     this._player.playing = true;
-    this._player.lyric && this._player.lyric.seek(this._player.currentTime * 1000);
   }
 
   onPause () {
@@ -255,6 +249,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   onTimeUpdate (e) {
     this._player.currentTime = e.target.currentTime;
+
+    // 更新歌词的位置
+    if (this._player.lyric && !this._moving) {
+      this._player.lyric.seek(this._player.currentTime * 1000);
+    };
   }
 
   onClose () {

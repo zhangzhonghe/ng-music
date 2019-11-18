@@ -55,10 +55,6 @@ export class PlayerService {
   //   return false;
   // }
 
-  lyricHandle (data) {
-    this.currentLyric$.next(data);
-  }
-
   switchMode () {
     this.playModeIndex++;
     this.playModeIndex = this.playModeIndex % this.playModes.length;
