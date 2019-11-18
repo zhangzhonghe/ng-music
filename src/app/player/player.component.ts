@@ -171,9 +171,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
         // 有歌词时
         this._player.currentLyric$.next({txt: '', lineNum: 0}); // 把上次的歌词清空
-        // this._player.lyric.play();
-        this.curNum = 0;  // 此时可能是上一首歌的位置，当切换歌曲时，需要重置
-        this.scrollToCurrent();
       };
     });
   }
@@ -185,10 +182,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   onPlayOrPause () {
     if (this._player.playing) this.audio.nativeElement.pause();
-    else  {
-      this.audio.nativeElement.play();
-      this.scrollToCurrent();
-    };
+    else this.audio.nativeElement.play();
   }
 
   onSwitchMode () {
@@ -221,9 +215,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   onSwitchLyric () {
     this.showLyric = !this.showLyric;
-    if (this.showLyric) {
-      setTimeout(() => this.scrollToCurrent(), 0);  // 此时显示歌词的元素还没有渲染，应该异步执行
-    };
   }
 
   onCanPlay () {
