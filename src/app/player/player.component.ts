@@ -107,8 +107,10 @@ export class PlayerComponent implements OnInit, OnDestroy {
   ) {
     this._lyricSubscription = this._player.currentLyric$.subscribe(({lineNum, txt}) => {
       this.currentLyric = txt;
-      this.curNum = lineNum;
-      this.scrollToCurrent();
+      if (lineNum !== this.curNum) {
+        this.scrollToCurrent();
+        this.curNum = lineNum;
+      };
     });
   }
 
