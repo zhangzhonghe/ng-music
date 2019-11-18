@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, ViewChild, ElementRef, EventEmitter, HostBinding } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, ViewChild, ElementRef, EventEmitter, HostBinding } from '@angular/core';
 import { trigger, transition, style, animate, state, query, group, keyframes } from '@angular/animations';
+import { Subscription } from 'rxjs';
 import { PlayerService } from '../services/player.service';
 import { UserService } from '../services/user.service';
 import { ApiService } from '../services/api.service';
@@ -83,7 +84,7 @@ import Lyric from 'lyric-parser';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.css']
 })
-export class PlayerComponent implements OnInit {
+export class PlayerComponent implements OnInit, OnDestroy {
   @Input() showLyric = false;
   @Output() closed: EventEmitter<undefined> = new EventEmitter();
   @ViewChild('audio', { static: false }) audio: ElementRef;
@@ -94,24 +95,29 @@ export class PlayerComponent implements OnInit {
   @HostBinding('@playerAnimation')
   get plAnimation () {
     return this.showNormalPlayer ? 'show' : 'hidden';
-  }
+  };
+  private _playingSubscription: Subscription;
+  private _lyricSubscription: Subscription;
 
   constructor(
     private _player: PlayerService,
     private _user: UserService,
     private _api: ApiService
   ) {
-    this._player.currentLyric$.subscribe(({lineNum, txt}) => {
+    this._lyricSubscription = this._player.currentLyric$.subscribe(({lineNum, txt}) => {
       this.currentLyric = txt;
       this.curNum = lineNum;
-      if (lineNum > 5) {
-        this.scrollToCurrent();
-      }
+      this.scrollToCurrent();
     });
   }
 
   ngOnInit() {
-    this._player.playing$.subscribe(() => this.onPlayOrPause());
+    this._playingSubscription = this._player.playing$.subscribe(() => this.onPlayOrPause());
+  }
+
+  ngOnDestroy() {
+    this._playingSubscription.unsubscribe();
+    this._lyricSubscription.unsubscribe();
   }
 
   get currentSong () {
@@ -146,14 +152,7 @@ export class PlayerComponent implements OnInit {
 
   scrollToCurrent () {
     this.lyricRef.nativeElement.scrollTo({
-      top: (this.curNum - 5) * 32,  // 每行高度32
-      behavior: 'smooth'
-    });
-  }
-
-  scrollToTop () {
-    this.lyricRef.nativeElement.scrollTo({
-      top: 0,
+      top: (this.curNum > 5) ? ((this.curNum - 5) * 32) : 0,  // 每行高度32px
       behavior: 'smooth'
     });
   }
@@ -161,10 +160,22 @@ export class PlayerComponent implements OnInit {
   setLyric (mid) {
     this._api.getLyric(mid).subscribe(data => {
       this._player.lyric && this._player.lyric.stop();
-      this._player.lyric = new Lyric(Base64.decode(data.lyric), this._player.lyricHandle.bind(this._player));
-      this._player.lyric.play();
-      this._player.lyric.seek(this._player.currentTime * 1000);
+      this._player.lyric = new Lyric(Base64.decode(data.lyric), (data) => this._player.lyricHandle(data));
+
+      if (this._player.lyric.lines.length === 0) {
+        this._player.currentLyric$.next({txt: this.removeTimeString(this._player.lyric.lrc)});  // 没有歌词时
+      } else {
+        this._player.currentLyric$.next({txt: ''}); // 把上次的歌词清空
+        this._player.lyric.play();
+        this._player.lyric.seek(this._player.currentTime * 1000);
+        this.scrollToCurrent();
+      };
     });
+  }
+
+  removeTimeString (lrc) {
+    const reg = /^\[.+\](.+)/;
+    return reg.exec(lrc) ? reg.exec(lrc)[1] : '暂无歌词';
   }
 
   onPlayOrPause () {
@@ -185,12 +196,12 @@ export class PlayerComponent implements OnInit {
 
   onPrevSong() {
     this._player.playPrevSong();
-    this.scrollToTop();
+    this.scrollToCurrent();
   }
 
   onNextSong() {
     this._player.playNextSong();
-    this.scrollToTop();
+    this.scrollToCurrent();
   }
 
   onChangedProgress (val: number) {
@@ -206,7 +217,7 @@ export class PlayerComponent implements OnInit {
   onSwitchLyric () {
     this.showLyric = !this.showLyric;
     if (this.showLyric) {
-      setTimeout(() => this.scrollToCurrent(), 0);
+      setTimeout(() => this.scrollToCurrent(), 0);  // 此时显示歌词的元素还没有渲染，应该异步执行
     };
   }
 

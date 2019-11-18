@@ -96,7 +96,7 @@ export class SearchResultComponent implements OnInit {
 
   addNewSong (song) {
     if (this.showPlayer) {
-      this._player.currentList = [...this._player.currentList, song];
+      this._player.currentList.push(song);
       this._player.currentIndex = this._player.currentList.length - 1;
       this._player.showNormalPlayer = true;
       this._player.showMiniPlayer = true;
@@ -104,7 +104,7 @@ export class SearchResultComponent implements OnInit {
     } else {
 
       // 添加到列表，但不进行播放
-      this._player.currentList = [...this._player.currentList, song];
+      this._player.currentList.push(song);
       this._message.showSuccess({content: '1首歌曲已添加到播放列表'});
     }
   }

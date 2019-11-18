@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PlayerService } from '../services/player.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-mini-player',
@@ -7,19 +8,24 @@ import { PlayerService } from '../services/player.service';
   styleUrls: ['./mini-player.component.css']
 })
 
-export class MiniPlayerComponent implements OnInit {
+export class MiniPlayerComponent implements OnInit, OnDestroy {
   showPlaylist = false;
   showAddSong = false;
   currentLyric = '歌词加载中';
+  private _lyricSubscription: Subscription;
   
   constructor(
     private _player: PlayerService
   ) { }
 
   ngOnInit() {
-    this._player.currentLyric$.subscribe(({txt}) => {
+    this._lyricSubscription = this._player.currentLyric$.subscribe(({txt}) => {
       this.currentLyric = txt;
     });
+  }
+
+  ngOnDestroy() {
+    this._lyricSubscription.unsubscribe();
   }
 
   get currentSong () {
