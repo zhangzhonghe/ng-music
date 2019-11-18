@@ -163,12 +163,21 @@ export class PlayerComponent implements OnInit, OnDestroy {
       this._player.lyric = new Lyric(Base64.decode(data.lyric), (data) => this._player.lyricHandle(data));
 
       if (this._player.lyric.lines.length === 0) {
-        this._player.currentLyric$.next({txt: this.removeTimeString(this._player.lyric.lrc)});  // 没有歌词时
+
+        // 没有歌词时
+        this._player.currentLyric$.next({txt: this.removeTimeString(this._player.lyric.lrc)});
       } else {
+
+        // 有歌词时
         this._player.currentLyric$.next({txt: ''}); // 把上次的歌词清空
         this._player.lyric.play();
-        this._player.lyric.seek(this._player.currentTime * 1000);
+        this.curNum = 0;  // 此时可能是上一首歌的位置，当切换歌曲时，需要重置
         this.scrollToCurrent();
+
+        // 此时currentTime可能还是上一首歌曲的时间，所以异步执行它，以等待currentTime更新
+        setTimeout(() => {
+          this._player.lyric.seek(this._player.currentTime * 1000);
+        }, 100);
       };
     });
   }
