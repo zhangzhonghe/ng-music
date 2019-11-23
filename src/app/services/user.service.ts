@@ -2,32 +2,32 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class UserService {
-  private _likeList = [];
-  private _recentList = [];
-  private _searchHistoryList = [];
+  private _likeList: Song[] = [];
+  private _recentList: Song[] = [];
+  private _searchHistoryList: string[] = [];
 
   constructor() { }
 
-  getLikeList () {
+  getLikeList (): Song[] {
     this._likeList = this._getDataFromStorage('likeList');
     return this._likeList;
   }
 
-  getRecentList () {
+  getRecentList (): Song[] {
     this._recentList = this._getDataFromStorage('recentList');
     return this._recentList;
   }
 
-  getSearchHistoryList () {
+  getSearchHistoryList (): string[] {
     this._searchHistoryList = this._getDataFromStorage('searchHistoryList');
     return this._searchHistoryList;
   }
-  addSongToLikeList (song) {
+  addSongToLikeList (song: Song) {
     this._likeList.unshift(song);
     this._setDataForStorage('likeList', this._likeList);
   }
 
-  addSongToRecentList (song) {
+  addSongToRecentList (song: Song) {
     let index = this.getIndexInRecentList(song);
     if (index || index === 0) {
       this.deleteSongOfRecentList(index);
@@ -37,23 +37,23 @@ export class UserService {
     this._setDataForStorage('recentList', this._recentList);
   }
 
-  addSongToSearchHistoryList (text) {
+  addSongToSearchHistoryList (text: string) {
     this._searchHistoryList = this._searchHistoryList.filter(item => item !== text);  // 删除重复的
     this._searchHistoryList.unshift(text);
     this._setDataForStorage('searchHistoryList', this._searchHistoryList);
   }
 
-  deleteSongOfLikeList (index) {
+  deleteSongOfLikeList (index: number) {
     this._likeList.splice(index, 1);
     this._setDataForStorage('likeList', this._likeList);
   }
 
-  deleteSongOfRecentList (index) {
+  deleteSongOfRecentList (index: number) {
     this._recentList.splice(index, 1);
     this._setDataForStorage('recentList', this._recentList);
   }
 
-  deleteSongOfSearchHistoryList (index) {
+  deleteSongOfSearchHistoryList (index: number) {
     this._searchHistoryList.splice(index, 1);
     this._setDataForStorage('searchHistoryList', this._searchHistoryList);
   }
@@ -63,24 +63,24 @@ export class UserService {
     this._setDataForStorage('searchHistoryList', this._searchHistoryList);
   }
 
-  private _getDataFromStorage (key) {
+  private _getDataFromStorage (key: string): any[] {
     return JSON.parse(localStorage.getItem(key)) || [];
   }
 
-  private _setDataForStorage (key, val) {
+  private _setDataForStorage (key: string, val: any) {
     localStorage.setItem(key, JSON.stringify(val));
   }
 
-  getIndexInLikeList (song) {
-    let index;
+  getIndexInLikeList (song: Song) {
+    let index: number;
     this.getLikeList().forEach((item, i) => {
       if (item.id === song.id) index = i;
     });
     return index;
   }
 
-  getIndexInRecentList (song) {
-    let index;
+  getIndexInRecentList (song: Song) {
+    let index: number;
     this.getRecentList().forEach((item, i) => {
       if (item.id === song.id) index = i;
     });

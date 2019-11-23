@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { pluck, tap, catchError, map, retry } from 'rxjs/operators';
-import { genUrlMid } from '../../third/song';
-import { UserService } from './user.service'
-import { PlayerService } from './player.service'
+import { genUrlMid } from '../../util/index';
+import { UserService } from './user.service';
+import { PlayerService } from './player.service';
+import { addQuery, filterSinger } from '../../util/index';
 
 const commonParams = {
   g_tk: '1928093487',
@@ -13,60 +14,6 @@ const commonParams = {
   notice: '0',
   format: 'jsonp'
 };
-
-function addQuery (url: string, params: object): string {
-  let param = '';
-  for (var k in params) {
-    let value = params[k] !== undefined ? params[k] : ''
-    param += '&' + k + '=' + encodeURIComponent(value)
-  };
-
-  return url += ((url.indexOf('?') < 0 ? '?' : '&') + (param ? param.substring(1) : ''));
-}
-
-interface Song {
-  id: string|number,
-  mid: string,
-  singer: string,
-  name: string,
-  album: any,
-  duration: string|number,
-  image: string,
-  filename: string,
-  url: string,
-  favorite: boolean
-}
-
-function filterSinger (singer: any): string {
-  let ret = []
-  if (!singer) {
-    return ''
-  }
-  singer.forEach((s) => {
-    ret.push(s.name)
-  })
-  return ret.join('/');
-}
-
-// function createSong (musicData: any): Song {
-//   return {
-//     id: musicData.songid,
-//     mid: musicData.songmid,
-//     singer: filterSinger(musicData.singer),
-//     name: musicData.songname,
-//     album: musicData.albumname,
-//     duration: musicData.interval,
-//     image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
-//     url: musicData.url,
-//     filename: `C400${musicData.songmid}.m4a`
-//   }
-// }
-
-interface SliderItem {
-  id: number,
-  linkUrl: string,
-  picUrl: string
-}
 
 @Injectable()
 export class ApiService {
@@ -101,7 +48,7 @@ export class ApiService {
     }
   }
 
-  getFavorite (songmid): boolean {
+  getFavorite (songmid: string): boolean {
     const likeList = this._user.getLikeList();
     return likeList.some(item => item.mid === songmid);
   }
@@ -335,11 +282,11 @@ export class ApiService {
     )
   }
 
-  setSongsUrl (songs) {
+  setSongsUrl (songs: Song[]) {
     const url = 'https://www.mu-zi.xyz/api/getPurlUrl';
 
-    let mids = []
-    let types = []
+    let mids: string[] = []
+    let types: number[] = []
 
     songs.forEach((song) => {
       mids.push(song.mid)
@@ -348,7 +295,7 @@ export class ApiService {
 
     const urlMid = genUrlMid(mids, types)
 
-    const data: any = Object.assign({}, commonParams, {
+    const data: object = Object.assign({}, commonParams, {
       g_tk: '5381',
       format: 'json',
       platform: 'h5',

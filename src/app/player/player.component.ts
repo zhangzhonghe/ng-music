@@ -86,7 +86,7 @@ import Lyric from 'lyric-parser';
 })
 export class PlayerComponent implements OnInit, OnDestroy {
   @Input() showLyric = false;
-  @Output() closed: EventEmitter<undefined> = new EventEmitter();
+  @Output() closed: EventEmitter<void> = new EventEmitter();
   @ViewChild('audio', { static: false }) audio: ElementRef;
   @ViewChild('lyricRef', { static: false }) lyricRef: ElementRef;
   private _currentSong = null;
@@ -241,8 +241,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
       this._player.playNextSong();
   }
 
-  onTimeUpdate (e) {
-    this._player.currentTime = e.target.currentTime;
+  onTimeUpdate (e: Event) {
+    this._player.currentTime = (<HTMLAudioElement>e.target).currentTime;
 
     // 更新歌词的位置
     if (this._player.lyric && !this._moving) {
