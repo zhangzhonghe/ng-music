@@ -18,7 +18,7 @@
     "@angular/forms": "~8.2.13",
     "@angular/platform-browser": "~8.2.13",
     "@angular/platform-browser-dynamic": "~8.2.13",
-    "@angular/pwa": "^0.803.19",
+    "@angular/pwa": "^0.803.29",
     "@angular/router": "~8.2.13",
     "@angular/service-worker": "~8.2.13",
     "js-base64": "^2.5.1",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~15.0.0",
-    "@angular/cli": "~8.3.16",
+    "@angular/cli": "~8.3.29",
     "@angular/compiler-cli": "~8.2.13",
     "@angular/language-service": "~8.2.13",
     "@types/node": "~8.9.4",
